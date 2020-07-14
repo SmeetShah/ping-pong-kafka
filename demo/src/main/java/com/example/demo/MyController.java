@@ -10,10 +10,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @RestController
-public class myController {
+public class MyController {
 
-    private BufferedWriter loadMsgIntoBuffer = null;
-    private FileWriter user;
+    private FileMessageAppender fileMsgAppender;
+
+    public MyController(FileMessageAppender fileMsgAppender){
+        this.fileMsgAppender = fileMsgAppender;
+    }
 
     @RequestMapping("/")
     public String helloWorld(){
@@ -32,26 +35,15 @@ public class myController {
 
     @GetMapping("/startgame")
     public void startGame(){
-        addMessageToPingPongFile("Ping");
+        fileMsgAppender.addMessage("Ping");
         System.out.println("Ping");
     }
 
     @GetMapping("/hit")
     public void hit(){
-        addMessageToPingPongFile("Pong");
+        fileMsgAppender.addMessage("Pong");
     }
 
-    public void addMessageToPingPongFile(String message){
-        try{
-            user = new FileWriter("PingPong.txt",true);
-            loadMsgIntoBuffer = new BufferedWriter(user);
-            loadMsgIntoBuffer.append(message);
-            loadMsgIntoBuffer.newLine();
-            loadMsgIntoBuffer.flush();
-            loadMsgIntoBuffer.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+
 
 }
