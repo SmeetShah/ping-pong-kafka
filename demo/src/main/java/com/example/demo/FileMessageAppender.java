@@ -10,13 +10,13 @@ import java.io.IOException;
 public class FileMessageAppender {
 
     private BufferedWriter loadMsgIntoBuffer = null;
-    private FileWriter user;
+    private FileWriter fileWriter;
 
     public void addMessage(String message){
 
         try{
-            user = new FileWriter("PingPong.txt",true);
-            loadMsgIntoBuffer = new BufferedWriter(user);
+            fileWriter = new FileWriter("PingPong.txt",true);
+            loadMsgIntoBuffer = new BufferedWriter(fileWriter);
             loadMsgIntoBuffer.append(message);
             loadMsgIntoBuffer.newLine();
             loadMsgIntoBuffer.flush();
