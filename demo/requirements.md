@@ -3,8 +3,8 @@
     * Live Score Board</br>
     * Live Actions
     * Objects such as Paddle, Ball, Table, etc...
-* In Game Facility  
-    * Allow gameplay between  
+* In Game Facilities  
+    * Allow gameplay between(First to 9 wins)  
         * two players simultaneously
         * teams of x players(Max 2 on each team)
         * Player and AI play
