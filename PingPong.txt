@@ -3,11 +3,6 @@ Pong
 Ping
 Pong
 Ping
+Pong
 Ping
-Ping
-Ping
-Ping
-Ping
-Ping
-Ping
-Ping
+Pong

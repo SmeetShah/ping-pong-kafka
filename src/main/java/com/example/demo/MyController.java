@@ -18,30 +18,14 @@ public class MyController {
         this.fileMsgAppender = fileMsgAppender;
     }
 
-    @RequestMapping("/")
-    public String helloWorld(){
-        return "Hello World!";
-    }
-
-    @GetMapping("/doMore")
-    public int doAddition(@RequestParam(value = "n1", defaultValue = "8")int n1,@RequestParam(value = "n2")int n2 ){
-
-        if( n1 + n2 > 10){
-            return n1+n2;
-        }
-        return 0;
-
-    }
-
     @GetMapping("/startgame")
-    public void startGame(){
-        fileMsgAppender.addMessage("Ping");
-        System.out.println("Ping");
+    public void startGame() throws IOException {
+        fileMsgAppender.createNewGame();
     }
 
     @GetMapping("/hit")
-    public void hit(){
-        fileMsgAppender.addMessage("Pong");
+    public void hit() throws IOException {
+        fileMsgAppender.nextMessage();
     }
 
 
