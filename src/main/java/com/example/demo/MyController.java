@@ -1,31 +1,23 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 @RestController
 public class MyController {
 
-    private FileMessageAppender fileMsgAppender;
-
-    public MyController(FileMessageAppender fileMsgAppender){
-        this.fileMsgAppender = fileMsgAppender;
-    }
+    private PingPongGame game;
 
     @GetMapping("/startgame")
     public void startGame() throws IOException {
-        fileMsgAppender.createNewGame();
+        game = new PingPongGame();
     }
 
-    @GetMapping("/hit")
-    public void hit() throws IOException {
-        fileMsgAppender.nextMessage();
+    @GetMapping("/nextMove")
+    public void nextMove() throws IOException {
+        game.nextMove();
     }
 
 
