@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.smeetshah.pingponggame;
 
+import com.smeetshah.pingponggame.PingPongGame;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,8 @@ public class PingPongGameTest {
 
     @Test
     public void shouldMakeFirstMove() throws IOException {
-        game = new PingPongGame();
+        game = new PingPongGame("team1","team2",1);
+        game.start();
         game.nextMove();
 
         String content = FileUtils.readFileToString(new File("PingPong.txt"), Charset.defaultCharset());
@@ -28,7 +30,8 @@ public class PingPongGameTest {
 
     @Test
     public void shouldRespondToFirstMove() throws IOException {
-        game = new PingPongGame();
+        game = new PingPongGame("team1","team2",1);
+        game.start();
         game.nextMove();
         game.nextMove();
 
