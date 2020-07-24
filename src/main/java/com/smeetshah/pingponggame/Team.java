@@ -3,9 +3,9 @@ package com.smeetshah.pingponggame;
 import java.util.ArrayList;
 
 public class Team {
-    public String name;
-    public int teamSize;
-    public ArrayList<Player> players;
+    private String name;
+    private int teamSize;
+    private ArrayList<Player> players;
 
     public Team(String name, int teamSize){
 
@@ -19,6 +19,10 @@ public class Team {
         return name;
     }
 
+    public int getTeamSize() {
+        return teamSize;
+    }
+
     public Player[] getPlayers(){
         Player[] listOfPlayers = new Player[this.players.size()];
 
@@ -30,7 +34,7 @@ public class Team {
     }
 
     public void addPlayer(Player p){
-        if(this.players.size() <= teamSize) this.players.add(p);
+        if(this.players.size() < teamSize) this.players.add(p);
     }
 
     public void removePlayer(Player p){

@@ -14,11 +14,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.kafka:spring-kafka'
+	compile group: 'org.apache.kafka', name: 'kafka_2.13', version: '2.5.0'
 	compile group: 'commons-io', name: 'commons-io', version: '2.5'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 }
+
 
 test {
 	useJUnitPlatform()

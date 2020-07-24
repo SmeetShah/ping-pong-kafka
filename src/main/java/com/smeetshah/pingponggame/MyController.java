@@ -14,12 +14,17 @@ public class MyController {
     @GetMapping("/startgame")
     public void startGame(@RequestParam String t1, @RequestParam String t2, @RequestParam int ts) throws IOException {
         game = new PingPongGame(t1,t2, ts);
-        game.start();
+    }
+
+    @GetMapping("/addPlayer")
+    public void addPlayerToTeams(){
+        game.teams[0].addPlayer(new Player("Smeet", Player.SkillLevel.ROOKIE));
+        game.teams[1].addPlayer(new Player("Sonu", Player.SkillLevel.ROOKIE));
     }
 
     @GetMapping("/nextMove")
     public void nextMove() throws IOException {
-        game.nextMove();
+        game.start();
     }
 
 
