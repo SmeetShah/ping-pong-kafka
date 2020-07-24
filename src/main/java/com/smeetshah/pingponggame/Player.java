@@ -2,8 +2,11 @@ package com.smeetshah.pingponggame;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,15 +21,17 @@ public class Player {
         AMATEUR,
         PROFESSIONAL
     }
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
+    private static final String TOPIC = "mytopic";
 
     private String name;
     private SkillLevel skillLevel;
-    @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
 
-    public Player(String name, SkillLevel skillLevel){
+    public Player(String name, SkillLevel skillLevel,KafkaTemplate<String,String> kafkaTemplate){
         this.name = name;
         this.skillLevel = skillLevel;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public String getName() {
@@ -41,10 +46,8 @@ public class Player {
         this.skillLevel = skillLevel;
     }
 
-    public void stroke(String message) {
-
-        kafkaTemplate.send("game_pingpong", message);
-
+    public void stroke(String msg) {
+        kafkaTemplate.send(TOPIC,msg);
     }
 
 

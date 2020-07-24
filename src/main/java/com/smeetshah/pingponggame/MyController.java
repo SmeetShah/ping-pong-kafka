@@ -1,6 +1,7 @@
 package com.smeetshah.pingponggame;
 
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,8 @@ import java.io.IOException;
 public class MyController {
 
     private PingPongGame game;
-    private Logger log;
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
 
     @GetMapping("/startgame")
     public void startGame(@RequestParam String t1, @RequestParam String t2, @RequestParam int ts) throws IOException {
@@ -21,9 +23,9 @@ public class MyController {
 
     @GetMapping("/addPlayer")
     public void addPlayerToTeams(){
-        game.teams[0].addPlayer(new Player("Smeet", Player.SkillLevel.ROOKIE));
-        game.teams[1].addPlayer(new Player("Sonu", Player.SkillLevel.ROOKIE));
-        log.info("Added both of the Players!",game.teams[0].getPlayers()[0]);
+        game.teams[0].addPlayer(new Player("Smeet", Player.SkillLevel.ROOKIE, kafkaTemplate));
+        game.teams[1].addPlayer(new Player("Sonu", Player.SkillLevel.ROOKIE, kafkaTemplate));
+        //log.info("Added both of the Players!",game.teams[0].getPlayers()[0]);
     }
 
     @GetMapping("/nextMove")
@@ -31,6 +33,10 @@ public class MyController {
         game.start();
     }
 
+    @GetMapping("/kafka")
+    public void sendMessage(@RequestParam String msg){
+        kafkaTemplate.send("mytopic",msg);
 
+    }
 
 }

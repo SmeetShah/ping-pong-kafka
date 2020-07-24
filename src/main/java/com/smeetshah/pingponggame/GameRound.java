@@ -23,17 +23,17 @@ public class GameRound {
 
         while(shotCounter < shotsLimit){
 
-            String msg;
 
+            String msg;
             if(shotCounter % 2 == 0){
-                msg =  "pingt"+String.valueOf(teamToServe+1);
-                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
+                msg = "pingt" + String.valueOf(teamToServe + 1);
             }else {
-                msg =  "pongt"+String.valueOf(teamToServe+1);
-                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
+                msg = "pongt" + String.valueOf(teamToServe + 1);
             }
 
-            teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
+            teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
+
+            //teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
 
             roundScore.updateScoreCard(teamToServe+1);
 

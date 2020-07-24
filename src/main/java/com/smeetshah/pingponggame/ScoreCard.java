@@ -28,14 +28,14 @@ public class ScoreCard {
         if(team == 2) scoreTeamTwo++;
     }
 
-    @KafkaListener(topics = "game_pingpong", groupId = "groupID")
+    @KafkaListener(topics = "mytopic", groupId = "group-id")
     public void receive(String message){
         if(message.endsWith("t1")){
             scoreTeamOne++;
         }else if(message.endsWith("t2")){
             scoreTeamTwo++;
         }
-       log.info("Received:" + message);
+       System.out.println("Received:" + message);
     }
 
 
