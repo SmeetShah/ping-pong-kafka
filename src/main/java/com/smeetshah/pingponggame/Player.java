@@ -1,6 +1,9 @@
 package com.smeetshah.pingponggame;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,6 +21,8 @@ public class Player {
 
     private String name;
     private SkillLevel skillLevel;
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
 
     public Player(String name, SkillLevel skillLevel){
         this.name = name;
@@ -36,20 +41,23 @@ public class Player {
         this.skillLevel = skillLevel;
     }
 
-    public void serve() throws IOException {
-        FileWriter moveLogger = new FileWriter("PingPong.txt",true);
-        BufferedWriter loadMoveIntoBuffer = new BufferedWriter(moveLogger);
+    public void serve() {
 
-        String endMsg = FileUtils.readFileToString(new File("PingPong.txt"), Charset.defaultCharset());
-
-        loadMoveIntoBuffer.append("Ping"+System.lineSeparator());
-
-        loadMoveIntoBuffer.flush();
-        loadMoveIntoBuffer.close();
+        kafkaTemplate.send("game_pingpong", "ping");
 
     }
 
-    public void receive() throws IOException {
+    @KafkaListener(topics = "game_pingpong", groupId = "groupID")
+    public void receive(String message){
+
+        if(message.equals("ping")){
+            kafkaTemplate.send("game_pingpong","pong");
+        }else if(message.equals("pong")) {
+            kafkaTemplate.send("game_pingpong", "ping");
+        }
+    }
+
+    public void txtFileLogger() throws IOException{
         FileWriter moveLogger = new FileWriter("PingPong.txt",true);
         BufferedWriter loadMoveIntoBuffer = new BufferedWriter(moveLogger);
 
@@ -57,7 +65,7 @@ public class Player {
 
         if(endMsg.endsWith("Ping"+System.lineSeparator())){
             loadMoveIntoBuffer.append("Pong"+System.lineSeparator());
-        }else if(endMsg.endsWith("Pong"+System.lineSeparator())){
+        }else if(endMsg.endsWith("Pong"+System.lineSeparator()) || endMsg.isEmpty()){
             loadMoveIntoBuffer.append("Ping"+System.lineSeparator());
         }
 

@@ -29,6 +29,8 @@ public class GameRound {
                 teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].receive();
             }
 
+            teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
+
             roundScore.updateScoreCard(teamToServe+1);
 
             if(teamToServe == 1){
