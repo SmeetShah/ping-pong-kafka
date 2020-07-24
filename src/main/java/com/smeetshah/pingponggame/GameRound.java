@@ -23,10 +23,14 @@ public class GameRound {
 
         while(shotCounter < shotsLimit){
 
-            if(shotCounter == 0 ){
-                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].serve();
+            String msg;
+
+            if(shotCounter % 2 == 0){
+                msg =  "pingt"+String.valueOf(teamToServe+1);
+                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
             }else {
-                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].receive();
+                msg =  "pongt"+String.valueOf(teamToServe+1);
+                teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
             }
 
             teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
@@ -44,5 +48,6 @@ public class GameRound {
 
         return roundScore;
     }
+
 
 }

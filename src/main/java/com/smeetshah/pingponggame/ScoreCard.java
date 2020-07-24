@@ -1,9 +1,14 @@
 package com.smeetshah.pingponggame;
 
+import org.springframework.kafka.annotation.KafkaListener;
+
+import java.util.logging.Logger;
+
 public class ScoreCard {
 
     private int scoreTeamOne;
     private int scoreTeamTwo;
+    private Logger log;
 
     public ScoreCard(){
         scoreTeamOne = 0;
@@ -22,5 +27,16 @@ public class ScoreCard {
         if(team == 1) scoreTeamOne++;
         if(team == 2) scoreTeamTwo++;
     }
+
+    @KafkaListener(topics = "game_pingpong", groupId = "groupID")
+    public void receive(String message){
+        if(message.endsWith("t1")){
+            scoreTeamOne++;
+        }else if(message.endsWith("t2")){
+            scoreTeamTwo++;
+        }
+       log.info("Received:" + message);
+    }
+
 
 }

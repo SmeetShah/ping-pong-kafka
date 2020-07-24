@@ -41,21 +41,12 @@ public class Player {
         this.skillLevel = skillLevel;
     }
 
-    public void serve() {
+    public void stroke(String message) {
 
-        kafkaTemplate.send("game_pingpong", "ping");
+        kafkaTemplate.send("game_pingpong", message);
 
     }
 
-    @KafkaListener(topics = "game_pingpong", groupId = "groupID")
-    public void receive(String message){
-
-        if(message.equals("ping")){
-            kafkaTemplate.send("game_pingpong","pong");
-        }else if(message.equals("pong")) {
-            kafkaTemplate.send("game_pingpong", "ping");
-        }
-    }
 
     public void txtFileLogger() throws IOException{
         FileWriter moveLogger = new FileWriter("PingPong.txt",true);
