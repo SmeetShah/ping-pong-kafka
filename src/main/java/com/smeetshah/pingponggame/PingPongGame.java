@@ -12,16 +12,12 @@ import java.nio.charset.Charset;
 
 public class PingPongGame {
 
-    public Team[] teams = new Team[2];
-    public GameConfig gameConfig;
-    public ScoreCard[] scoreBoard = new ScoreCard[3];
+    private GameConfig gameConfig;
+    private ScoreCard[] scoreBoard;
 
-    public PingPongGame(String team1, String team2, int teamSize){
-
-        this.teams[0] = new Team(team1,teamSize);
-        this.teams[1] = new Team(team2,teamSize);
-        gameConfig = new GameConfig(3,9);
-
+    public PingPongGame(GameConfig gameConfig){
+        this.gameConfig = gameConfig;
+        scoreBoard = new ScoreCard[gameConfig.getRoundsPerGame()];
     }
 
     public void start() throws IOException {
@@ -42,7 +38,7 @@ public class PingPongGame {
 
         while(roundCounter < gameConfig.getRoundsPerGame()){
 
-            rounds[roundCounter] = new GameRound(gameConfig.getMaxShotsPerRound(),teams);
+            rounds[roundCounter] = new GameRound(gameConfig.getMaxShotsPerRound(),gameConfig.getTeams());
             scoreBoard[roundCounter] = rounds[roundCounter].play();
 
             roundCounter++;
@@ -54,8 +50,8 @@ public class PingPongGame {
         for(int i = 0; i < gameConfig.getRoundsPerGame(); i++){
             loadFinal.write("Round: " + (i+1) + "\n");
             loadFinal.write("=======================================\n");
-            loadFinal.write(teams[0].getName()+ " :" + scoreBoard[i].getScoreTeamOne() + "\n");
-            loadFinal.write(teams[1].getName()+ " :" + scoreBoard[i].getScoreTeamTwo() + "\n");
+            loadFinal.write(gameConfig.getTeams()[0].getName()+ ": " + scoreBoard[i].getScoreTeamOne() + "\n");
+            loadFinal.write(gameConfig.getTeams()[1].getName()+ ": " + scoreBoard[i].getScoreTeamTwo() + "\n");
             loadFinal.write("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
         }
 
