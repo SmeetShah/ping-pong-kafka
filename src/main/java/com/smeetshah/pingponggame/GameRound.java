@@ -1,15 +1,18 @@
 package com.smeetshah.pingponggame;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameRound {
 
     private int shotsLimit;
-    private Team[] teams;
+    private List<Team> teams;
 
-    public GameRound(int shotsLimit, Team[] teams){
+    public GameRound(int shotsLimit, List<Team> teams){
         this.shotsLimit = shotsLimit;
+        this.teams = new ArrayList<>();
         this.teams = teams;
     }
 
@@ -31,7 +34,7 @@ public class GameRound {
                 msg = "pongt" + String.valueOf(teamToServe + 1);
             }
 
-            teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].stroke(msg);
+            teams.get(teamToServe).getPlayers().get(generateRand.nextInt(teams.get(teamToServe).getTeamSize())).stroke(msg);
 
             //teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
 

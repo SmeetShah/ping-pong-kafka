@@ -1,11 +1,12 @@
 package com.smeetshah.pingponggame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Team {
     private String name;
     private int teamSize;
-    private ArrayList<Player> players;
+    private List<Player> players;
 
     public Team(String name, int teamSize){
 
@@ -23,14 +24,8 @@ public class Team {
         return teamSize;
     }
 
-    public Player[] getPlayers(){
-        Player[] listOfPlayers = new Player[this.players.size()];
-
-        for(int i = 0; i < this.players.size(); i++) {
-            listOfPlayers[i] = this.players.get(i);
-        }
-
-        return listOfPlayers;
+    public List<Player> getPlayers(){
+        return players;
     }
 
     public void addPlayer(Player p){

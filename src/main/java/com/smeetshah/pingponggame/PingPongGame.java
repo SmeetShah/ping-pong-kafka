@@ -1,6 +1,8 @@
 package com.smeetshah.pingponggame;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,10 +16,22 @@ public class PingPongGame {
 
     private GameConfig gameConfig;
     private ScoreCard[] scoreBoard;
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
+    private final static int TEAMS = 2;
 
-    public PingPongGame(GameConfig gameConfig){
+    public PingPongGame(GameConfig gameConfig, KafkaTemplate<String,String> kafkaTemplate){
         this.gameConfig = gameConfig;
+        this.kafkaTemplate = kafkaTemplate;
         scoreBoard = new ScoreCard[gameConfig.getRoundsPerGame()];
+    }
+
+    public void addPlayerToTheRespectiveTeams(Player[] players){
+        for(int i = 0;i < TEAMS; i++){
+            for(int j = i; j < i+gameConfig.getTeamSize(); j++){
+                gameConfig.getTeams().get(i).addPlayer(players[j]);
+            }
+        }
     }
 
     public void start() throws IOException {
@@ -50,8 +64,8 @@ public class PingPongGame {
         for(int i = 0; i < gameConfig.getRoundsPerGame(); i++){
             loadFinal.write("Round: " + (i+1) + "\n");
             loadFinal.write("=======================================\n");
-            loadFinal.write(gameConfig.getTeams()[0].getName()+ ": " + scoreBoard[i].getScoreTeamOne() + "\n");
-            loadFinal.write(gameConfig.getTeams()[1].getName()+ ": " + scoreBoard[i].getScoreTeamTwo() + "\n");
+            loadFinal.write(gameConfig.getTeams().get(0).getName()+ ": " + scoreBoard[i].getScoreTeamOne() + "\n");
+            loadFinal.write(gameConfig.getTeams().get(1).getName()+ ": " + scoreBoard[i].getScoreTeamTwo() + "\n");
             loadFinal.write("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
         }
 
