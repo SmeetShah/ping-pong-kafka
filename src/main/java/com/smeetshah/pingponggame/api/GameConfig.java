@@ -18,4 +18,11 @@ public class GameConfig {
         return maxShotsPerRound;
     }
 
+    @Override
+    public String toString() {
+        return "GameConfig{" +
+                "roundsPerGame=" + roundsPerGame +
+                ", maxShotsPerRound=" + maxShotsPerRound +
+                '}';
+    }
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameConfig {
-    private final int roundsPerGame;
-    private final int maxShotsPerRound;
+    private int roundsPerGame;
+    private int maxShotsPerRound;
     private KafkaTemplate<String,String> kafkaTemplate;
     private String kafkaTopic;
 

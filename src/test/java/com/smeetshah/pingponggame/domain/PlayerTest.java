@@ -1,4 +1,4 @@
-package com.smeetshah.pingponggame;
+package com.smeetshah.pingponggame.domain;
 
 import com.smeetshah.pingponggame.domain.Player;
 import org.junit.jupiter.api.Assertions;

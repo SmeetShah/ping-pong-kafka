@@ -8,10 +8,8 @@ public class Team {
     private List<Player> players;
 
     public Team(String name){
-
         this.name = name;
-        players = new ArrayList<Player>();
-
+        players = new ArrayList<>();
     }
 
     public String getName() {
@@ -23,6 +21,8 @@ public class Team {
     }
 
     public void addPlayer(Player p){
+
+
         this.players.add(p);
     }
 

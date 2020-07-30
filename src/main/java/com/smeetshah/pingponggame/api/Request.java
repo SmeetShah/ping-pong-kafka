@@ -6,8 +6,8 @@ public class Request {
     private GameConfig gameConfig;
     private List<Team> teams;
 
-    public Request(GameConfig gameConfig, List<Team> teams){
-        this.gameConfig = gameConfig;
+    public Request(GameConfig config, List<Team> teams){
+        this.gameConfig = config;
         this.teams = teams;
     }
 

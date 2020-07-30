@@ -16,4 +16,12 @@ public class Player {
     public String getSkillLevel() {
         return skillLevel;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", skillLevel='" + skillLevel + '\'' +
+                '}';
+    }
 }

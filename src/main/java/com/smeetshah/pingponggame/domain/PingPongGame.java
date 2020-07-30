@@ -1,8 +1,5 @@
 package com.smeetshah.pingponggame.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,16 +10,16 @@ import java.util.List;
 public class PingPongGame {
 
     private GameConfig gameConfig;
-    private ScoreCard[] scoreBoard;
+    private List<ScoreCard> scoreBoard;
     private List<Team> teams;
 
     public PingPongGame(GameConfig gameConfig, List<Team> teams){
         this.gameConfig = gameConfig;
-        scoreBoard = new ScoreCard[gameConfig.getRoundsPerGame()];
+        this.scoreBoard = new ArrayList<>();
         this.teams = teams;
     }
 
-    public void start() throws IOException {
+    public void start() throws IOException, InterruptedException {
 
         FileWriter moveLogger;
 
@@ -41,9 +38,15 @@ public class PingPongGame {
         while(roundCounter < gameConfig.getRoundsPerGame()){
 
             rounds[roundCounter] = new GameRound(gameConfig,teams);
-            scoreBoard[roundCounter] = rounds[roundCounter].play();
-
+            ScoreCard tempScorecard = rounds[roundCounter].play();
+            Thread.sleep(1000);
+            scoreBoard.add(tempScorecard);
             roundCounter++;
+
+        }
+
+        for (int i = 0; i < scoreBoard.size(); i++) {
+            System.out.println("Round "+ i+":"+scoreBoard.get(i).toString());
         }
 
         FileWriter finalScore = new FileWriter("PingPongFinal.txt");
@@ -52,8 +55,8 @@ public class PingPongGame {
         for(int i = 0; i < gameConfig.getRoundsPerGame(); i++){
             loadFinal.write("Round: " + (i+1) + "\n");
             loadFinal.write("=======================================\n");
-            loadFinal.write(teams.get(0).getName()+ ": " + scoreBoard[i].getScoreTeamOne() + "\n");
-            loadFinal.write(teams.get(1).getName()+ ": " + scoreBoard[i].getScoreTeamTwo() + "\n");
+            loadFinal.write(teams.get(0).getName()+ ": " + scoreBoard.get(i).getScoreTeamOne() + "\n");
+            loadFinal.write(teams.get(1).getName()+ ": " + scoreBoard.get(i).getScoreTeamTwo() + "\n");
             loadFinal.write("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
         }
 

@@ -20,4 +20,11 @@ public class Team {
         return players;
     }
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", players=" + players.toString() +
+                '}';
+    }
 }

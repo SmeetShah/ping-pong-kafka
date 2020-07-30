@@ -12,12 +12,14 @@ import java.io.IOException;
 @RestController
 public class PingPongGameController {
 
-    private PingPongGame game;
-    private static final String TOPIC = "mytopic";
     @Autowired
     private KafkaTemplate<String,String> kafkaTemplate;
+
     @Autowired
     private ApiToDomainConverter apiToDomainConverter;
+
+    private PingPongGame game;
+    private static final String TOPIC = "mytopic";
 
     @PostMapping(value = "/startGame",consumes = MediaType.APPLICATION_JSON_VALUE)
     public void startGame(@RequestBody Request request) throws IOException {
@@ -26,7 +28,7 @@ public class PingPongGameController {
     }
 
     @GetMapping("/nextMove")
-    public void nextMove() throws IOException {
+    public void nextMove() throws IOException, InterruptedException {
         game.start();
     }
 
