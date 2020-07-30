@@ -1,5 +1,7 @@
 package com.smeetshah.pingponggame;
 
+import com.smeetshah.pingponggame.domain.Player;
+import com.smeetshah.pingponggame.domain.Team;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

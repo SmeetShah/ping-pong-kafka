@@ -1,6 +1,6 @@
 package com.smeetshah.pingponggame;
 
-import com.smeetshah.pingponggame.PingPongGame;
+import com.smeetshah.pingponggame.domain.PingPongGame;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

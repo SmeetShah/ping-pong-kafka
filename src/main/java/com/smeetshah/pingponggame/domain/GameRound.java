@@ -1,4 +1,7 @@
-package com.smeetshah.pingponggame;
+package com.smeetshah.pingponggame.domain;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,12 +10,14 @@ import java.util.Random;
 
 public class GameRound {
 
-    private int shotsLimit;
+    private GameConfig gameConfig;
     private List<Team> teams;
+    private int teamSize;
 
-    public GameRound(int shotsLimit, List<Team> teams){
-        this.shotsLimit = shotsLimit;
-        this.teams = new ArrayList<>();
+
+    public GameRound(GameConfig gameConfig, List<Team> teams){
+        this.gameConfig = gameConfig;
+        this.teamSize = teams.size();
         this.teams = teams;
     }
 
@@ -24,7 +29,7 @@ public class GameRound {
         int teamToServe = generateRand.nextInt(2);
         ScoreCard roundScore = new ScoreCard();
 
-        while(shotCounter < shotsLimit){
+        while(shotCounter < gameConfig.getMaxShotsPerRound()){
 
 
             String msg;
@@ -34,7 +39,8 @@ public class GameRound {
                 msg = "pongt" + String.valueOf(teamToServe + 1);
             }
 
-            teams.get(teamToServe).getPlayers().get(generateRand.nextInt(teams.get(teamToServe).getTeamSize())).stroke(msg);
+            Player tempPlayer = teams.get(teamToServe).getPlayers().get(generateRand.nextInt(teamSize));
+            tempPlayer.stroke(gameConfig.getKafkaTemplate(),gameConfig.getKafkaTopic(),msg);
 
             //teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
 

@@ -1,9 +1,10 @@
 package com.smeetshah.pingponggame;
 
-import org.slf4j.Logger;
+import com.smeetshah.pingponggame.api.Request;
+import com.smeetshah.pingponggame.domain.PingPongGame;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -12,21 +13,17 @@ import java.io.IOException;
 public class PingPongGameController {
 
     private PingPongGame game;
+    private static final String TOPIC = "mytopic";
     @Autowired
     private KafkaTemplate<String,String> kafkaTemplate;
+    @Autowired
+    private ApiToDomainConverter apiToDomainConverter;
 
-    @PostMapping(value = "/startGame")
-    public void startGame(@RequestBody GameConfig gameConfig, @RequestBody Player[] players) throws IOException {
-        game = new PingPongGame(gameConfig,kafkaTemplate);
-        game.addPlayerToTheRespectiveTeams(players);
+    @PostMapping(value = "/startGame",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void startGame(@RequestBody Request request) throws IOException {
+        game = new PingPongGame(apiToDomainConverter.gameConfigFromApiToDomain(request.getGameConfig(),kafkaTemplate, TOPIC),
+                                apiToDomainConverter.teamsFromApiToDomain(request.getTeams()));
     }
-
-    /*@GetMapping("/addPlayer")
-    public void addPlayerToTeams(){
-        game.teams[0].addPlayer(new Player("Smeet", Player.SkillLevel.ROOKIE, kafkaTemplate));
-        game.teams[1].addPlayer(new Player("Sonu", Player.SkillLevel.ROOKIE, kafkaTemplate));
-        //log.info("Added both of the Players!",game.teams[0].getPlayers()[0]);
-    }*/
 
     @GetMapping("/nextMove")
     public void nextMove() throws IOException {

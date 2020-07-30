@@ -1,4 +1,4 @@
-package com.smeetshah.pingponggame;
+package com.smeetshah.pingponggame.domain;
 
 import org.springframework.kafka.annotation.KafkaListener;
 

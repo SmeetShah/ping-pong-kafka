@@ -1,8 +1,8 @@
 package com.smeetshah.pingponggame;
 
+import com.smeetshah.pingponggame.domain.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 public class PlayerTest {
 
