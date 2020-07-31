@@ -1,0 +1,7 @@
+language: Java
+
+jdk:
+  - oraclejdk13
+
+os: osx
+
