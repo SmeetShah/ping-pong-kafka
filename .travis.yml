@@ -5,3 +5,8 @@ jdk:
 
 os: osx
 
+before_script:
+  - chmod a+x gradlew
+
+script: ./gradlew build
+
