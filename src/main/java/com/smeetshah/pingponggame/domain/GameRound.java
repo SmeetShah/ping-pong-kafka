@@ -12,7 +12,7 @@ public class GameRound {
     public static ScoreCard roundScoreCard;
 
 
-    public GameRound(GameConfig gameConfig, List<Team> teams){
+    public GameRound(GameConfig gameConfig, List<Team> teams) {
         this.gameConfig = gameConfig;
         this.teamSize = teams.size();
         this.teams = teams;
@@ -27,12 +27,12 @@ public class GameRound {
         int teamToServe = generateRand.nextInt(teams.size());
         int playersPerTeam;
 
-        while(shotCounter < gameConfig.getMaxShotsPerRound()){
+        while (shotCounter < gameConfig.getMaxShotsPerRound()) {
 
             String msg;
-            if(shotCounter % 2 == 0){
+            if (shotCounter % 2 == 0) {
                 msg = "pingt" + String.valueOf(teamToServe + 1);
-            }else {
+            } else {
                 msg = "pongt" + String.valueOf(teamToServe + 1);
             }
 
@@ -40,15 +40,11 @@ public class GameRound {
 
             Player tempPlayer = teams.get(teamToServe).getPlayers().get(generateRand.nextInt(playersPerTeam));
 
-            tempPlayer.stroke(gameConfig.getKafkaTemplate(),gameConfig.getKafkaTopic(),msg);
+            tempPlayer.stroke(gameConfig.getKafkaTemplate(), gameConfig.getKafkaTopic(), msg);
 
-            //teams[teamToServe].getPlayers()[generateRand.nextInt(teams[0].getTeamSize())].txtFileLogger();
-
-            //roundScore.updateScoreCard(teamToServe+1);
-
-            if(teamToServe == 1){
+            if (teamToServe == 1) {
                 teamToServe = 0;
-            }else {
+            } else {
                 teamToServe = 1;
             }
 

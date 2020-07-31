@@ -4,10 +4,12 @@ public class GameConfig {
 
     private final int roundsPerGame;
     private final int maxShotsPerRound;
+    private final int playerLimitEachTeam;
 
-    public GameConfig(int roundsPerGame, int maxShotsPerRound) {
+    public GameConfig(int roundsPerGame, int maxShotsPerRound, int playerLimitEachTeam) {
         this.roundsPerGame = roundsPerGame;
         this.maxShotsPerRound = maxShotsPerRound;
+        this.playerLimitEachTeam = playerLimitEachTeam;
     }
 
     public int getRoundsPerGame() {
@@ -16,6 +18,10 @@ public class GameConfig {
 
     public int getMaxShotsPerRound() {
         return maxShotsPerRound;
+    }
+
+    public int getPlayerLimitEachTeam() {
+        return playerLimitEachTeam;
     }
 
     @Override

@@ -6,38 +6,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PingPongGame {
 
     private GameConfig gameConfig;
     private List<ScoreCard> scoreBoard;
     private List<Team> teams;
 
-    public PingPongGame(GameConfig gameConfig, List<Team> teams){
+    public PingPongGame(GameConfig gameConfig, List<Team> teams) {
         this.gameConfig = gameConfig;
         this.scoreBoard = new ArrayList<>();
         this.teams = teams;
     }
 
     public void start() throws IOException, InterruptedException {
-
-        FileWriter moveLogger;
-
-        try {
-
-            moveLogger = new FileWriter("PingPong.txt");
-
-        } catch (IOException e) {
-
-        }
-
         GameRound[] rounds = new GameRound[gameConfig.getRoundsPerGame()];
-
         int roundCounter = 0;
 
-        while(roundCounter < gameConfig.getRoundsPerGame()){
+        while (roundCounter < gameConfig.getRoundsPerGame()) {
 
-            rounds[roundCounter] = new GameRound(gameConfig,teams);
+            rounds[roundCounter] = new GameRound(gameConfig, teams);
             ScoreCard tempScorecard = rounds[roundCounter].play();
             Thread.sleep(1000);
             scoreBoard.add(tempScorecard);
@@ -45,18 +32,14 @@ public class PingPongGame {
 
         }
 
-        for (int i = 0; i < scoreBoard.size(); i++) {
-            System.out.println("Round "+ i+":"+scoreBoard.get(i).toString());
-        }
-
         FileWriter finalScore = new FileWriter("PingPongFinal.txt");
         BufferedWriter loadFinal = new BufferedWriter(finalScore);
 
-        for(int i = 0; i < gameConfig.getRoundsPerGame(); i++){
-            loadFinal.write("Round: " + (i+1) + "\n");
+        for (int i = 0; i < gameConfig.getRoundsPerGame(); i++) {
+            loadFinal.write("Round: " + (i + 1) + "\n");
             loadFinal.write("=======================================\n");
-            loadFinal.write(teams.get(0).getName()+ ": " + scoreBoard.get(i).getScoreTeamOne() + "\n");
-            loadFinal.write(teams.get(1).getName()+ ": " + scoreBoard.get(i).getScoreTeamTwo() + "\n");
+            loadFinal.write(teams.get(0).getName() + ": " + scoreBoard.get(i).getScoreTeamOne() + "\n");
+            loadFinal.write(teams.get(1).getName() + ": " + scoreBoard.get(i).getScoreTeamTwo() + "\n");
             loadFinal.write("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
         }
 
@@ -65,10 +48,9 @@ public class PingPongGame {
 
     }
 
-    public void getScores(){
+    public void getScores() {
 
     }
-
 
 
 }
