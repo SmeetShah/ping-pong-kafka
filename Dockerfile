@@ -1,4 +1,7 @@
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+WORKDIR /usr/app
+COPY build/libs/ping-pong-game-0.1.0.jar /usr/app/app.jar
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","app.jar"]
