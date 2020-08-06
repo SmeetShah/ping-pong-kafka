@@ -9,7 +9,7 @@ plugins {
 scmVersion.repository.customUsername = project.findProperty("GITHUB_TOKEN") ?: null
 project.version = scmVersion.version
 group = 'com.example'
-version = '0.0.1'
+version = project.version
 sourceCompatibility = '1.8'
 
 repositories {
