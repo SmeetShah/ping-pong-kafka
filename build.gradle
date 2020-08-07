@@ -6,6 +6,8 @@ plugins {
 	id 'pl.allegro.tech.build.axion-release' version '1.12.0'
 }
 
+apply plugin: 'java'
+
 scmVersion.repository.customUsername = project.findProperty("GITHUB_TOKEN") ?: null
 project.version = scmVersion.version
 group = 'com.example'
@@ -25,7 +27,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 }
-
 
 test {
 	useJUnitPlatform()
