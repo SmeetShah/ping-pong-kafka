@@ -3,8 +3,6 @@ package com.smeetshah.pingponggame;
 import com.smeetshah.pingponggame.domain.GameConfig;
 import com.smeetshah.pingponggame.domain.Player;
 import com.smeetshah.pingponggame.domain.Team;
-import org.apache.kafka.common.protocol.types.Field;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 

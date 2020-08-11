@@ -18,7 +18,7 @@ services:
       KAFKA_CREATE_TOPICS: "mytopic:1:1"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
   pingpong:
-    build: .
+    image: smeetshah/ping-pong-game
     container_name: pingpong
     ports:
     - "8080:8080"

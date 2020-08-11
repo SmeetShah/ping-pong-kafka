@@ -48,9 +48,7 @@ public class PingPongGame {
 
     }
 
-    public void getScores() {
-
+    public List<ScoreCard> getScoreBoard() {
+        return scoreBoard;
     }
-
-
 }

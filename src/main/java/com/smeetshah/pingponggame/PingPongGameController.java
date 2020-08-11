@@ -2,9 +2,7 @@ package com.smeetshah.pingponggame;
 
 import com.smeetshah.pingponggame.api.Request;
 import com.smeetshah.pingponggame.domain.PingPongGame;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
