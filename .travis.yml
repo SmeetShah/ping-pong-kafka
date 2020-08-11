@@ -10,7 +10,7 @@ os: osx
 
 before_install:
   - chmod +x gradlew
-  - project_version = $(./gradlew currentVersion)
+  - project_version = "$(./gradlew currentVersion)"
   - echo $project_version
 
 script:
