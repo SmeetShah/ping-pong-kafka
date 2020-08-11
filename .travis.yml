@@ -1,4 +1,4 @@
-language: bash
+language: java
 
 jdk:
   - oraclejdk13
@@ -6,14 +6,12 @@ jdk:
 services:
   - docker
 
-os: osx
-
 before_install:
   - chmod +x gradlew
 
 script:
   - ./gradlew build
-  - docker build -t ping-pong-game .
+  - ./gradlew docker
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   - docker tag ping-pong-game smeetshah/ping-pong-game:latest
   - docker push smeetshah/ping-pong-game:latest
