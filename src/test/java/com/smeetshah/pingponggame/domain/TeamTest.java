@@ -10,14 +10,14 @@ public class TeamTest {
 
     @Test
     public void shouldCreateTeamWithNoPlayers(){
-        Team team = new Team("team1");
+        Team team = new Team("team1",1);
 
         Assertions.assertEquals(0,team.getPlayers().size());
     }
 
     @Test
-    public void shouldAddPlayerInTeam(){
-        Team team = new Team("team1");
+    public void shouldAddPlayerInTheTeam(){
+        Team team = new Team("team1",1);
         team.addPlayer(SMEET);
 
         Assertions.assertEquals(SMEET,team.getPlayers().get(0));
@@ -25,29 +25,34 @@ public class TeamTest {
 
     @Test
     public void shouldNotAllowSecondPlayerInTeamWithSizeOne(){
-        Team team = new Team("team1");
+        Team team = new Team("team1",1);
         team.addPlayer(SMEET);
 
         Assertions.assertThrows(TeamPlayerLimitReachedException.class,() -> {team.addPlayer(MATT);});
     }
 
     @Test
-    public void shouldThrowErrorWhileRemovingFromTeamWithNoPlayer(){
-        Team team = new Team("team1");
+    public void shouldThrowErrorWhileRemovingFromTeamWithNoPlayers(){
+        Team team = new Team("team1",1);
 
         Assertions.assertThrows(NoPlayerExistInTheTeamException.class,() -> {team.removePlayer(SMEET);});
     }
 
 
     @Test
-    public void shouldHave2Teams(){
+    public void shouldAddTwoPlayersToTheTeam(){
+        Team team = new Team("team 1",2);
+        team.addPlayer(SMEET);
 
-        Team[] dummyTeams = new Team[2];
-        dummyTeams[0] = new Team("team1",1);
-        dummyTeams[1] = new Team("team1",1);
+        Assertions.assertDoesNotThrow(() -> {team.addPlayer(MATT);});
+    }
 
-        Assertions.assertEquals(2,dummyTeams.length);
+    @Test
+    public void shouldNotDeletePlayerWhoDontBelongToTheTeam(){
+        Team team = new Team("team 1",1);
+        team.addPlayer(SMEET);
 
+        Assertions.assertThrows(PlayerDoesNotBelongToTheTeamException.class, () -> {team.removePlayer(MATT);});
     }
 
 }
