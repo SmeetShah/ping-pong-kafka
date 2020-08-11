@@ -1,4 +1,4 @@
-language: java
+language: bash
 
 jdk:
   - oraclejdk13
@@ -13,7 +13,7 @@ before_install:
 
 script:
   - ./gradlew build
-  - ./gradlew docker
+  - docker build -t ping-pong-game .
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   - docker tag ping-pong-game smeetshah/ping-pong-game:latest
   - docker push smeetshah/ping-pong-game:latest
