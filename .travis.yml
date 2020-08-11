@@ -10,13 +10,11 @@ os: osx
 
 before_install:
   - chmod +x gradlew
-  - project_version = "$(./gradlew currentVersion)"
-  - echo $project_version
 
 script:
   - ./gradlew build
   - ./gradlew docker
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-  - docker tag ping-pong-game:${project_version} smeetshah/ping-pong-game:latest
+  - docker tag ping-pong-game smeetshah/ping-pong-game:latest
   - docker push smeetshah/ping-pong-game:latest
 
