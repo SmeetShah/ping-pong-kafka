@@ -6,8 +6,6 @@ plugins {
 	id 'pl.allegro.tech.build.axion-release' version '1.12.0'
 }
 
-apply plugin: 'java'
-
 scmVersion.repository.customUsername = project.findProperty("GITHUB_TOKEN") ?: null
 project.version = scmVersion.version
 group = 'com.example'
@@ -26,6 +24,12 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+}
+
+docker{
+	name "ping-pong-game:${project.version}"
+	files "build/libs/${project.name}-${project.version}.jar"
+	buildArgs([JAR_FILE: "${project.name}-${project.version}.jar"])
 }
 
 test {
